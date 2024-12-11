@@ -1,7 +1,51 @@
 <!DOCTYPE html>
-<body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <title>Server-Side Executor (Just for Fun)</title>
+</head>
+<body>
     <div>
-        <h1>This is a upcoming serverside executor (nah its just for fun)<h1>
+        <h1>This is an upcoming server-side executor (nah, it's just for fun)</h1>
+        
+        <!-- Textbox for entering code -->
+        <textarea id="codeInput" placeholder="Enter your code here" rows="6" cols="30"></textarea>
+        <br>
+        
+        <!-- Execute button -->
+        <button id="executeBtn">Execute</button>
     </div>
+
+    <script>
+        // Wait for the "Execute" button to be clicked
+        document.getElementById('executeBtn').addEventListener('click', function() {
+            // Get the code entered in the textbox
+            var code = document.getElementById('codeInput').value.trim();
+
+            if (code !== "") {
+                // Send the code to the server (Roblox game will use this URL)
+                fetch('https://bluenerf.github.io/serverside/recievecode', {
+                    method: 'POST',  // Send a POST request
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ code: code })  // Sending the code as JSON
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Code sent successfully:', data);
+                    alert('Code has been sent for execution!');
+                })
+                .catch(error => {
+                    console.error('Error sending code:', error);
+                    alert('Failed to send the code.');
+                });
+            } else {
+                alert('Please enter some code.');
+            }
+        });
+    </script>
 </body>
+</html>
