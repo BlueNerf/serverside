@@ -26,6 +26,7 @@
 
             if (code !== "") {
                 // Send the code to the server (Roblox game will use this URL)
+                console.log(code)
                 fetch('https://bluenerf.github.io/serverside/recievecode', {
                     method: 'POST',  // Send a POST request
                     headers: {
